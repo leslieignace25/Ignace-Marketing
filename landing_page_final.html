@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lead Connector</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;}
+
+/* HEADER */
+.site-header{background:#030d1f;padding:20px 8%;display:flex;align-items:center;}
+.site-header img{width:150px;display:block;}
+@media(max-width:768px){.site-header img{width:160px;}.site-header{padding:20px 5%;}}
+
+/* HERO */
+.hero{background:#030d1f;padding:80px 8%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.hero-content{max-width:800px;margin:0 auto;display:flex;flex-direction:column;align-items:center;width:100%;}
+.badge{background:#0f2f61;padding:10px 20px;border-radius:30px;color:#4ea5ff;font-weight:600;font-size:14px;display:inline-block;}
+.hero h1{font-size:clamp(36px,5vw,64px);line-height:1.1;margin:25px 0;color:white;}
+.hero p{font-size:clamp(16px,2vw,20px);color:#d6e0f5;max-width:620px;line-height:1.7;margin:0 auto;text-align:center;}
+.cta-btn{display:inline-block;margin-top:35px;background:#FFC928;color:#071B3B;padding:18px 40px;font-weight:bold;border-radius:10px;text-decoration:none;font-size:18px;transition:.3s;border:none;cursor:pointer;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,201,40,.4);}
+.hero-benefits{display:flex;gap:25px;margin-top:30px;flex-wrap:wrap;color:white;font-size:15px;justify-content:center;}
+.video-wrapper{border-radius:16px;overflow:hidden;border:2px solid #1a3a6e;box-shadow:0 0 60px rgba(78,165,255,.15);width:100%;max-width:800px;margin:40px auto 0;}
+.video-wrapper iframe{width:100%;aspect-ratio:16/9;display:block;border:none;}
+
+/* CALCULATOR */
+.calc-section{background:#071B3B;padding:80px 8%;}
+.calc-section h2{color:white;font-size:clamp(26px,4vw,42px);text-align:center;margin-bottom:10px;}
+.calc-section .sub{color:#d6e0f5;text-align:center;margin-bottom:50px;font-size:18px;}
+.calc-box{max-width:700px;margin:auto;background:#0E2853;border-radius:20px;padding:50px;}
+.calc-row{display:flex;gap:30px;flex-wrap:wrap;margin-bottom:30px;}
+.calc-field{flex:1;min-width:200px;}
+.calc-field label{color:#4ea5ff;font-weight:600;display:block;margin-bottom:10px;}
+.calc-field input[type=range]{width:100%;accent-color:#FFC928;}
+.calc-field .val{color:white;font-size:28px;font-weight:700;margin-top:5px;}
+.calc-result{background:#071B3B;border-radius:14px;padding:30px;text-align:center;border:2px solid #1a3a6e;}
+.calc-result .lost{color:#FFC928;font-size:42px;font-weight:800;}
+.calc-result .recovered{color:#4ea5ff;font-size:42px;font-weight:800;}
+.calc-result p{color:#d6e0f5;margin-top:5px;}
+.calc-result .divider{width:2px;background:#1a3a6e;margin:0 20px;}
+.result-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;}
+.result-col{flex:1;min-width:150px;}
+
+/* COMPARISON TABLE */
+.compare-section{background:#f4f7fd;padding:80px 8%;}
+.compare-section h2{text-align:center;font-size:clamp(26px,4vw,42px);color:#071B3B;margin-bottom:50px;}
+.compare-table{max-width:900px;margin:auto;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.1);}
+.compare-table table{width:100%;border-collapse:collapse;}
+.compare-table th{padding:20px;font-size:20px;}
+.compare-table th:first-child{background:#e8edf7;color:#071B3B;text-align:left;}
+.compare-table th.bad{background:#4ea5ff;color:white;}
+.compare-table th.good{background:#071B3B;color:white;}
+.compare-table td{padding:18px 20px;border-bottom:1px solid #e0e6f0;}
+.compare-table td:first-child{background:#f9fbff;font-weight:600;color:#071B3B;}
+.compare-table td.bad{background:#e8f2ff;text-align:center;color:#2a6db5;}
+.compare-table td.good{background:#e8f2ff;text-align:center;color:#2a6db5;font-weight:600;}
+.compare-table tr:last-child td{border-bottom:none;}
+
+/* TESTIMONIALS */
+.testimonial-section{background:white;padding:80px 0;overflow:hidden;}
+.testimonial-section h2{text-align:center;font-size:clamp(26px,4vw,42px);margin-bottom:40px;color:#071B3B;}
+.slider{overflow:hidden;}
+.slide-track{display:flex;width:calc(380px * 8);animation:scroll 35s linear infinite;}
+.testimonial{width:350px;padding:30px;margin:0 15px;background:#f4f7fd;border-radius:15px;flex-shrink:0;}
+.testimonial p{margin:10px 0;color:#333;line-height:1.6;}
+.testimonial h4{color:#071B3B;font-weight:700;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* FINAL CTA */
+.final-cta{background:#030d1f;text-align:center;padding:100px 20px;}
+.final-cta h2{color:white;font-size:clamp(28px,4vw,48px);margin-bottom:20px;}
+.final-cta p{color:#d6e0f5;max-width:700px;margin:0 auto 25px;font-size:clamp(16px,2vw,20px);line-height:1.9;}
+
+/* FOOTER */
+footer{background:#030d1f;border-top:1px solid #1a3a6e;padding:30px 8%;text-align:center;color:#d6e0f5;font-size:14px;}
+footer a{color:#4ea5ff;text-decoration:none;margin:0 10px;}
+footer a:hover{text-decoration:underline;}
+
+/* STICKY MOBILE CTA */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:#FFC928;text-align:center;padding:16px;z-index:999;box-shadow:0 -4px 20px rgba(0,0,0,.2);}
+.sticky-cta a{color:#071B3B;font-weight:bold;font-size:18px;text-decoration:none;display:block;}
+
+@media(max-width:768px){
+  .sticky-cta{display:block;}
+  body{padding-bottom:60px;}
+  .calc-row{flex-direction:column;}
+  .result-row{flex-direction:column;}
+  .calc-result .divider{display:none;}
+  .compare-table{overflow-x:auto;display:block;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html"><img src="https://i.ibb.co/84KwsW05/image-ignace-marketing-logo.png" alt="Ignace Marketing" style="width:220px;display:block;"></a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge">24/7 AI LEAD CONNECTOR</span>
+    <h1>Stop Losing Leads While You're Busy, Closed, or Sleeping</h1>
+    <p>Our AI instantly responds to missed calls, qualifies prospects, and books appointments directly into your calendar 24/7 so every lead gets a chance to become a customer.</p>
+    <a href="#final" class="cta-btn">Get More Appointments</a>
+    <div class="video-wrapper">
+      <iframe src="https://streamable.com/e/pn956m" allowfullscreen></iframe>
+    </div>
+    <div class="hero-benefits">
+      <div>✓ 24/7 AI Assistant</div>
+      <div>✓ Missed Call Recovery</div>
+      <div>✓ Calendly Integration</div>
+      <div>✓ AI Lead Qualification</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEPARATOR -->
+<div style="height:4px;background:linear-gradient(to right,transparent,#4ea5ff,#FFC928,#4ea5ff,transparent);"></div>
+
+<!-- CALCULATOR -->
+<section class="calc-section">
+  <h2>How Much Revenue Are Missed Calls Costing You?</h2>
+  <p class="sub">Adjust the sliders to see your estimated monthly revenue loss and what AI can recover.</p>
+  <div class="calc-box">
+    <div class="calc-row">
+      <div class="calc-field">
+        <label>Missed Calls / Month</label>
+        <input type="range" id="calls" min="10" max="500" value="80" oninput="updateCalc()">
+        <div class="val" id="callsVal">80</div>
+      </div>
+      <div class="calc-field">
+        <label>Average Job Value ($)</label>
+        <input type="range" id="value" min="100" max="5000" step="50" value="500" oninput="updateCalc()">
+        <div class="val" id="valueVal">$500</div>
+      </div>
+      <div class="calc-field">
+        <label>Close Rate (%)</label>
+        <input type="range" id="rate" min="5" max="80" value="25" oninput="updateCalc()">
+        <div class="val" id="rateVal">25%</div>
+      </div>
+    </div>
+    <div class="calc-result">
+      <div class="result-row">
+        <div class="result-col">
+          <div class="lost" id="lostVal">$10,000</div>
+          <p>💸 Lost Revenue / Month</p>
+        </div>
+        <div class="divider"></div>
+        <div class="result-col">
+          <div class="recovered" id="recoveredVal">$7,500</div>
+          <p>🚀 Recoverable with AI</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section style="background:#071B3B;padding:80px 20px;">
+  <div style="max-width:600px;margin:auto;background:#0E2853;padding:50px;border-radius:20px;text-align:center;">
+    <h2 style="color:white;font-size:clamp(24px,3vw,36px);margin-bottom:15px;">Start Recovering Your Missed Revenue Today</h2>
+    <p style="color:#d6e0f5;margin-bottom:30px;line-height:1.7;">Fill in your details below and we'll show you exactly how our AI can start booking appointments for your business 24/7.</p>
+    <input type="text" placeholder="Full Name" style="width:100%;padding:16px;margin-bottom:15px;border:none;border-radius:10px;font-size:16px;outline:none;background:white;color:#071B3B;">
+    <input type="text" placeholder="Business Name" style="width:100%;padding:16px;margin-bottom:15px;border:none;border-radius:10px;font-size:16px;outline:none;background:white;color:#071B3B;">
+    <input type="tel" placeholder="Phone Number" style="width:100%;padding:16px;margin-bottom:15px;border:none;border-radius:10px;font-size:16px;outline:none;background:white;color:#071B3B;">
+    <input type="email" placeholder="Email Address" style="width:100%;padding:16px;margin-bottom:20px;border:none;border-radius:10px;font-size:16px;outline:none;background:white;color:#071B3B;">
+    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:25px;text-align:left;">
+      <input type="checkbox" id="legal" style="margin-top:4px;width:18px;height:18px;cursor:pointer;accent-color:#FFC928;flex-shrink:0;">
+      <label for="legal" style="color:#d6e0f5;font-size:14px;line-height:1.6;">I agree to the <a href="privacy-policy.html" target="_blank" style="color:#4ea5ff;text-decoration:underline;">Privacy Policy</a> and <a href="terms-and-conditions.html" target="_blank" style="color:#4ea5ff;text-decoration:underline;">Terms of Service</a>.</label>
+    </div>
+    <button onclick="handleFormSubmit(this)" class="cta-btn">Get More Appointments</button>
+    <div id="formSuccess2" style="display:none;color:#4ea5ff;font-size:18px;font-weight:600;margin-top:20px;">✅ Thanks! We'll be in touch within 24 hours.</div>
+  </div>
+</section>
+
+<!-- SEPARATOR -->
+<div style="height:4px;background:linear-gradient(to right,transparent,#4ea5ff,#FFC928,#4ea5ff,transparent);"></div>
+
+<!-- WHAT HAPPENS AFTER -->
+<section style="background:#030d1f;padding:80px 8%;text-align:center;">
+  <h2 style="color:white;font-size:clamp(26px,4vw,42px);margin-bottom:50px;">What Happens After You Submit?</h2>
+  <div style="max-width:700px;margin:auto;display:flex;flex-direction:column;gap:30px;text-align:left;">
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <div style="font-size:30px;">📞</div>
+      <div>
+        <div style="color:white;font-weight:700;font-size:18px;margin-bottom:6px;">Step 1: We Learn About Your Business</div>
+        <div style="color:#d6e0f5;font-size:16px;line-height:1.7;">We take a quick look at how your business currently handles incoming calls and missed opportunities.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <div style="font-size:30px;">🤖</div>
+      <div>
+        <div style="color:white;font-weight:700;font-size:18px;margin-bottom:6px;">Step 2: We Configure Your AI Assistant</div>
+        <div style="color:#d6e0f5;font-size:16px;line-height:1.7;">Your AI is customized to answer questions, qualify leads, and book appointments based on your business.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <div style="font-size:30px;">📅</div>
+      <div>
+        <div style="color:white;font-weight:700;font-size:18px;margin-bottom:6px;">Step 3: Start Capturing More Appointments</div>
+        <div style="color:#d6e0f5;font-size:16px;line-height:1.7;">Every missed call receives an instant response, helping you recover leads that would otherwise be lost.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <div style="font-size:30px;">🚀</div>
+      <div>
+        <div style="color:white;font-weight:700;font-size:18px;margin-bottom:6px;">Step 4: Watch Your Calendar Fill Up</div>
+        <div style="color:#d6e0f5;font-size:16px;line-height:1.7;">Instead of chasing leads, your business starts converting more of the calls you are already receiving.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEPARATOR -->
+<div style="height:4px;background:linear-gradient(to right,transparent,#4ea5ff,#FFC928,#4ea5ff,transparent);"></div>
+
+<!-- SALES COPY -->
+<section style="background:#071B3B;padding:80px 8%;text-align:center;">
+  <h2 style="color:white;font-size:clamp(26px,4vw,42px);margin-bottom:20px;">Every Missed Call Is Money Walking Out The Door</h2>
+  <p style="color:#d6e0f5;font-size:clamp(16px,2vw,20px);max-width:750px;margin:0 auto 40px;line-height:1.8;">While you're busy, closed, or sleeping your phone is ringing and nobody's answering. Those aren't just missed calls. They're missed revenue, missed appointments, and missed opportunities heading straight to your competition. It does not have to be that way.</p>
+  <a href="#final" class="cta-btn">Get More Appointments</a>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="compare-section">
+  <h2>Without AI vs. With AI</h2>
+  <div class="compare-table">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th class="bad">❌ Without AI</th>
+          <th class="good">✅ With AI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Missed Call Response</td>
+          <td class="bad">Hours later (or never)</td>
+          <td class="good">Instant, within seconds</td>
+        </tr>
+        <tr>
+          <td>After-Hours Coverage</td>
+          <td class="bad">Zero, leads go cold</td>
+          <td class="good">24/7 always-on coverage</td>
+        </tr>
+        <tr>
+          <td>Lead Qualification</td>
+          <td class="bad">Manual, time-consuming</td>
+          <td class="good">Automated and instant</td>
+        </tr>
+        <tr>
+          <td>Appointment Booking</td>
+          <td class="bad">Phone tag and delays</td>
+          <td class="good">Auto-booked into calendar</td>
+        </tr>
+        <tr>
+          <td>Revenue Recovery</td>
+          <td class="bad">Leads lost permanently</td>
+          <td class="good">Up to 75% recovered</td>
+        </tr>
+        <tr>
+          <td>Staff Workload</td>
+          <td class="bad">Overwhelmed and distracted</td>
+          <td class="good">Focused on real work</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <h2>Trusted By Businesses That Want More Appointments.</h2>
+  <div class="slider">
+    <div class="slide-track">
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"We recovered leads we would've lost every day. The AI books appointments automatically."</p><h4>Mike R.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"Our response time went from hours to seconds."</p><h4>Sarah T.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"Best automation investment we've made."</p><h4>David P.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"We're booking appointments while sleeping."</p><h4>Lisa M.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"We recovered leads we would've lost every day. The AI books appointments automatically."</p><h4>Mike R.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"Our response time went from hours to seconds."</p><h4>Sarah T.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"Best automation investment we've made."</p><h4>David P.</h4></div>
+      <div class="testimonial">⭐⭐⭐⭐⭐<p>"We're booking appointments while sleeping."</p><h4>Lisa M.</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEPARATOR -->
+<div style="height:4px;background:linear-gradient(to right,transparent,#4ea5ff,#FFC928,#4ea5ff,transparent);"></div>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="final">
+  <h2>Look, Here's The Bottom Line...</h2>
+  <p>Every day, potential customers are calling businesses just like yours.</p>
+  <p>Some get answered.</p>
+  <p>Others go straight to voicemail and never call back.</p>
+  <p>Those missed calls are not just missed conversations. They are missed appointments, missed revenue, and missed opportunities that often end up with your competitors.</p>
+  <p>Our goal is simple: help your business respond faster, recover more leads, and book more appointments without adding extra staff.</p>
+  <p style="color:white;font-size:clamp(18px,2.5vw,24px);max-width:700px;margin:0 auto 40px;line-height:1.9;font-weight:600;">Your next best customer may be calling right now.</p>
+  <button class="cta-btn" onclick="window.location.href='https://calendly.com/YOUR-LINK'">Get More Appointments</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ignace Marketing &nbsp;|&nbsp; <a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms-and-conditions.html">Terms & Conditions</a></p>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="#final">📅 Get More Appointments</a>
+</div>
+
+<script>
+function showPage(page){
+  if(page==='privacy') window.location.href='privacy-policy.html';
+  if(page==='terms') window.location.href='terms-and-conditions.html';
+}
+function updateCalc(){
+  const calls = +document.getElementById('calls').value;
+  const val   = +document.getElementById('value').value;
+  const rate  = +document.getElementById('rate').value;
+  document.getElementById('callsVal').textContent = calls;
+  document.getElementById('valueVal').textContent = '$' + val.toLocaleString();
+  document.getElementById('rateVal').textContent  = rate + '%';
+  const lost      = Math.round(calls * (rate/100) * val);
+  const recovered = Math.round(lost * 0.75);
+  document.getElementById('lostVal').textContent      = '$' + lost.toLocaleString();
+  document.getElementById('recoveredVal').textContent = '$' + recovered.toLocaleString();
+}
+function handleFormSubmit(btn){
+  btn.textContent='⏳ Submitting...';
+  btn.disabled=true;
+  setTimeout(()=>{
+    btn.style.display='none';
+    document.getElementById('formSuccess2').style.display='block';
+  },1200);
+}
+updateCalc();
+</script>
+</body>
+</html>
